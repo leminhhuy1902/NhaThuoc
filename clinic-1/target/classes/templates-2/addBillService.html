@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clinic | Manager</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+    <link th:rel="stylesheet" th:href="@{/picker/bootstrap-datepicker.css}"/>
+    <link th:rel="stylesheet" th:href="@{/picker/bootstrap-datepicker.standalone.css}"/>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link th:href="@{/dist/css/adminlte.css}" rel="stylesheet" />
+</head>
+<!--
+`body` tag options:
+
+  Apply one or more of the following classes to to the body tag
+  to get the desired effect
+
+  * sidebar-collapse
+  * sidebar-mini
+-->
+<body class="hold-transition sidebar-mini">
+
+<div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="index3.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">Contact</a>
+            </li>
+        </ul>
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <!-- Navbar Search -->
+            <li class="nav-item">
+                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                    <i class="fas fa-search"></i>
+                </a>
+                <div class="navbar-search-block">
+                    <form class="form-inline">
+                        <div class="input-group input-group-sm">
+                            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-navbar" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Clinic</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <p th:utext="${User}" class="d-block" style="color: white">User Name</p>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <li class="nav-item" th:if="${role == 'ADMIN' || role == 'DOCTOR' || role == 'NURSE'}">
+                        <a href="/" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Nhân viên
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/list" class="nav-link">
+                            <i class="nav-icon fas fa-solid fa-user-nurse"></i>
+                            <p>
+                                Bác sĩ
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item" th:if="${role == 'ADMIN' || role == 'DOCTOR' || role == 'NURSE'}">
+                        <a href="/patient" class="nav-link">
+                            <i class="nav-icon fas fa-solid fa-bed"></i>
+                            <p>
+                                Bệnh nhân
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item" th:if="${role == 'ADMIN' || role == 'NURSE'}">
+                        <a href="/medicine" class="nav-link">
+                            <i class="nav-icon fas fa-solid fa-capsules"></i>
+                            <p>
+                                Nhà thuốc
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item" th:if="${role == 'ADMIN' || role == 'NURSE'}">
+                        <a href="/pay#" class="nav-link">
+                            <i class="nav-icon fas fa-solid fa-user-nurse "></i>
+                            <p>
+                                Thanh Toán
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item" th:if="${role == 'DOCTOR'}">
+                        <a href="/bill_service" class="nav-link">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Lịch khám
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/add-bill_service" class="nav-link active">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Đặt lịch khám
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item" th:if="${role == 'DOCTOR'}">
+                        <a href="/history" class="nav-link">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Lịch sử khám
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login" class="nav-link">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>
+                                Đăng nhập
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <form method="POST" th:object="${userForm}" th:action="${url}">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Tạo nhân viên</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="birthdate">Ngày khám</label>
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control" id="birthdate" autocomplete="off" th:field="*{dayString}"/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label >Thuốc</label>
+                                    <select id="choices-multiple-remove-button" th:field="*{medicine}" placeholder="Select upto 5 tags" multiple>
+                                        <option th:each="item : ${listMedicine}"
+                                                th:value="${item.id}"
+                                                th:text="${item.name}">
+                                        </option>
+                                    </select>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputStatus">Bệnh nhân</label>
+                                    <select th:field="*{idPatient}" id="inputStatus" class="form-control custom-select">
+                                        <option selected disabled value="-1">Tên</option>
+                                        <option th:each ="item : ${listPatient}" th:value="${item.id}" th:text="${item.name}">On Hold</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputClientCompany">Bác sĩ</label>
+                                    <select th:field="*{idUser}" id="inputClientCompany" class="form-control custom-select">
+                                        <option selected disabled value="-1">Tên</option>
+                                        <option th:each ="item1 : ${listUser}" th:value="${item1.id}" th:text="${item1.name}">On Hold</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Chuẩn đoán</label>
+                                    <textarea th:field="*{diagnose}" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Trạng thái</label>
+                                    <select th:field="*{status}" class="form-control custom-select">
+                                        <option selected disabled value="-1">Trạng thái</option>
+                                        <option value="1" >Chưa khám</option>
+                                        <option value="2" >Đã khám</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Gía (VNĐ)</label>
+                                    <input type="number" th:field="*{price}" class="form-control">
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <a href="/" class="btn btn-secondary">Cancel</a>
+                        <input type="submit" th:value="${nameButton}" class="btn btn-success float-right">
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </form>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 3.2.0
+        </div>
+    </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script>
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE -->
+<script th:src="@{/dist/js/adminlte.js}"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<script th:src="@{/plugins/chart.js/Chart.min.js}"></script>
+<script th:src="@{/plugins/datepicker.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/dist/js/demo.js}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script th:src="@{/dist/js/pages/dashboard3.js}"></script>
+<script>
+    $('.input-group.date').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+
+    $(document).ready(function(){
+
+    var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+    removeItemButton: true,
+    maxItemCount:5,
+    searchResultLimit:5,
+    renderChoiceLimit:5
+    });
+
+
+    });
+</script>
+</body>
+</html>
+

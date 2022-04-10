@@ -1,0 +1,52 @@
+# ===================================================================
+# Server specific properties
+# ===================================================================
+server:
+  port: 8001
+
+# ===================================================================
+# Spring specific properties
+# ===================================================================
+debug: false
+
+runsystem:
+  clientApp:
+    name: clinic
+
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates-2/
+  application:
+    name: ${RS_SERVICE_NAME:template}
+
+  # ===================================================================
+  # Redis config
+  # ===================================================================
+
+  # ===================================================================
+  # Data source and JPA specific properties
+  # ===================================================================
+  datasource:
+
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/clinic?useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8&useSSL=false&createDatabaseIfNotExist=true
+    username: root
+    password: Admin
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 20
+      pool-name: Hikari
+      auto-commit: false
+  jpa:
+     database-platform: org.hibernate.dialect.MySQL57Dialect
+     database: MYSQL
+     show-sql: true
+     hibernate:
+       ddl-auto: update
+localStorage:
+  location: D:/testDowloads
+
+
+
+

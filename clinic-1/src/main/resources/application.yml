@@ -1,0 +1,68 @@
+# ===================================================================
+# Server specific properties
+# ===================================================================
+server:
+  port: 8001
+
+# ===================================================================
+# Spring specific properties
+# ===================================================================
+debug: false
+
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: ${RS_SERVICE_NAME:template}
+
+  # ===================================================================
+  # Redis config
+  # ===================================================================
+
+  # ===================================================================
+  # Data source and JPA specific properties
+  # ===================================================================
+  datasource:
+
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/clinic?useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8&useSSL=false&createDatabaseIfNotExist=true
+
+
+
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 20
+      pool-name: Hikari
+      auto-commit: false
+  jpa:
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL57Dialect
+      hibernate.jdbc.time_zone: UTC
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      # modify batch size as necessary
+      hibernate.jdbc.batch_size: 25
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
+      hibernate.query.fail_on_pagination_over_collection_fetch: true
+      hibernate.query.in_clause_parameter_padding: true
+      hibernate.enable_lazy_load_no_trans: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+localStorage:
+  location: D:/testDowloads
+
+
+
+

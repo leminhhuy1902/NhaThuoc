@@ -1,0 +1,41 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%green(%d{HH:mm:ss.SSS}) %magenta(${PID}) [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Daily rollover -->
+            <fileNamePattern>C:\Users\lemin\Desktop\Huy Lad\TemplateBE-%d{yyyy-MM-dd}.log</fileNamePattern>
+
+            <!-- Keep 7 days' worth of history -->
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>        <!-- default 20, means drop lower event when has 20% capacity remaining -->
+        <appender-ref ref="FILE" />
+        <includeCallerData>false</includeCallerData>        <!-- default false -->
+        <neverBlock>false</neverBlock>        <!-- default false, set to true to cause 
+            the Appender not block the application and just drop the messages -->
+    </appender>
+
+    <logger name="org.quartz.plugins.history.LoggingTriggerHistoryPlugin" level="OFF" additive="false"/>
+
+    <!-- Configure so that it outputs to both console and log file -->
+    <root level="INFO">
+        <appender-ref ref="ASYNC_FILE" />
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
